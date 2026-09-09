@@ -38,6 +38,14 @@ h1{font-family:'Space Grotesk';font-size:52px;line-height:1.04;letter-spacing:-.
 .arrow{text-align:center;color:var(--faint);font-size:10px;letter-spacing:.24em;text-transform:uppercase;margin-top:10px}
 .foot{display:flex;justify-content:space-between;margin-top:2
 6px;border-top:1px solid var(--line);padding-top:16px;color:var(--faint);font-size:11px;letter-spacing:.06em}
+
+.ic{display:inline-flex;flex:none}
+.ic svg{width:19px;height:19px;display:block}
+.door b{display:flex;align-items:center;gap:10px}
+.door .ic svg{width:26px;height:26px}
+.chip b{align-items:center}
+.chip .st{margin-left:auto;flex:none}
+
 </style>
 </head>
 <body>
@@ -53,75 +61,75 @@ h1{font-family:'Space Grotesk';font-size:52px;line-height:1.04;letter-spacing:-.
 
   <div class="doorslabel">Three doors in</div>
   <div class="doors">
-    <div class="door"><b>Microsoft 365 Copilot</b><span>Ready-made SaaS agents inside the apps people already use</span></div>
-    <div class="door"><b>Copilot Studio</b><span>Low-code SaaS builder for business teams</span></div>
-    <div class="door"><b>Microsoft Foundry</b><span>Pro-code PaaS: portal, SDKs, VS Code, GitHub</span></div>
+    <div class="door"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-copilot"/></svg></span>Microsoft 365 Copilot</b><span>Ready-made SaaS agents inside the apps people already use</span></div>
+    <div class="door"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-copilot-studio"/></svg></span>Copilot Studio</b><span>Low-code SaaS builder for business teams</span></div>
+    <div class="door"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-ai-foundry"/></svg></span>Microsoft Foundry</b><span>Pro-code PaaS: portal, SDKs, VS Code, GitHub</span></div>
   </div>
   <div class="arrow">&#9660; &nbsp;everything below is the platform they build on&nbsp; &#9660;</div>
 
   <div class="band b1">
     <div class="lbl"><div class="num">1</div><h2>Models</h2><div class="owns">Foundry Models<br>11,000+ catalog</div></div>
     <div class="chips">
-      <div class="chip"><b>Foundry Models catalog <span class="st">GA</span></b><span>OpenAI, Anthropic, Meta, Mistral, DeepSeek, xAI, Phi + more, one endpoint shape</span></div>
-      <div class="chip"><b>Azure OpenAI in Foundry</b><span>Frontier GPT models inside Azure's security boundary</span></div>
-      <div class="chip"><b>Model router <span class="st p">Preview</span></b><span>Picks the best model per request on cost + latency</span></div>
-      <div class="chip"><b>Provisioned throughput</b><span>Reserved capacity, one predictable bill across families</span></div>
-      <div class="chip"><b>Model leaderboard</b><span>Ranks models by quality, cost and throughput</span></div>
-      <div class="chip"><b>Foundry Local</b><span>Edge-optimized models on Windows / macOS devices</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-foundry-models"/></svg></span>Foundry Models catalog <span class="st">GA</span></b><span>OpenAI, Anthropic, Meta, Mistral, DeepSeek, xAI, Phi + more, one endpoint shape</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-azure-openai"/></svg></span>Azure OpenAI in Foundry</b><span>Frontier GPT models inside Azure's security boundary</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-arrow-routing"/></svg></span>Model router <span class="st p">Preview</span></b><span>Picks the best model per request on cost + latency</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-gauge"/></svg></span>Provisioned throughput</b><span>Reserved capacity, one predictable bill across families</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-trophy"/></svg></span>Model leaderboard</b><span>Ranks models by quality, cost and throughput</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-foundry-local"/></svg></span>Foundry Local</b><span>Edge-optimized models on Windows / macOS devices</span></div>
     </div>
   </div>
 
   <div class="band b2">
     <div class="lbl"><div class="num">2</div><h2>Agent Platform</h2><div class="owns">Foundry Agent Service<br>GA May 2025</div></div>
     <div class="chips">
-      <div class="chip"><b>Foundry Agent Service <span class="st">GA</span></b><span>Managed runtime: identity, memory, observability built in</span></div>
-      <div class="chip"><b>Microsoft Agent Framework <span class="st p">Preview</span></b><span>One SDK - the successor to Semantic Kernel + AutoGen</span></div>
-      <div class="chip"><b>A2A protocol</b><span>Agents expose themselves to other agents</span></div>
-      <div class="chip"><b>MCP tools</b><span>1,400+ MCP-enabled tools, plus OpenAPI + Logic Apps</span></div>
-      <div class="chip"><b>Managed memory</b><span>Persistent context across sessions, no plumbing</span></div>
-      <div class="chip"><b>Voice Live API</b><span>Real-time speech agents in 150+ locales</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-foundry-agent-service"/></svg></span>Foundry Agent Service <span class="st">GA</span></b><span>Managed runtime: identity, memory, observability built in</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-code"/></svg></span>Microsoft Agent Framework <span class="st p">Preview</span></b><span>One SDK - the successor to Semantic Kernel + AutoGen</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-protocol-handler"/></svg></span>A2A protocol</b><span>Agents expose themselves to other agents</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-plug-connected"/></svg></span>MCP tools</b><span>1,400+ MCP-enabled tools, plus OpenAPI + Logic Apps</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-database"/></svg></span>Managed memory</b><span>Persistent context across sessions, no plumbing</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-speech"/></svg></span>Voice Live API</b><span>Real-time speech agents in 150+ locales</span></div>
     </div>
   </div>
 
   <div class="band b3">
     <div class="lbl"><div class="num">3</div><h2>Knowledge</h2><div class="owns">Foundry IQ<br>on Azure AI Search</div></div>
     <div class="chips">
-      <div class="chip"><b>Foundry IQ <span class="st p">Preview</span></b><span>Reusable knowledge bases that ground many agents via one API</span></div>
-      <div class="chip"><b>Agentic retrieval</b><span>Query engine that plans, searches and synthesizes</span></div>
-      <div class="chip"><b>Knowledge sources</b><span>SharePoint, OneLake, Fabric, Blob, web - permissions intact</span></div>
-      <div class="chip"><b>Work IQ</b><span>How your organization operates, from Microsoft 365</span></div>
-      <div class="chip"><b>Fabric IQ</b><span>Business meaning layered onto enterprise data</span></div>
-      <div class="chip"><b>Content Understanding</b><span>Layout-aware extraction from complex documents</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-foundry-iq"/></svg></span>Foundry IQ <span class="st p">Preview</span></b><span>Reusable knowledge bases that ground many agents via one API</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-ai-search"/></svg></span>Agentic retrieval</b><span>Query engine that plans, searches and synthesizes</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-onelake"/></svg></span>Knowledge sources</b><span>SharePoint, OneLake, Fabric, Blob, web - permissions intact</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-briefcase"/></svg></span>Work IQ</b><span>How your organization operates, from Microsoft 365</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-fabric"/></svg></span>Fabric IQ</b><span>Business meaning layered onto enterprise data</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-document-text"/></svg></span>Content Understanding</b><span>Layout-aware extraction from complex documents</span></div>
     </div>
   </div>
 
   <div class="band b4">
     <div class="lbl"><div class="num">4</div><h2>Production</h2><div class="owns">Run, watch,<br>publish</div></div>
     <div class="chips">
-      <div class="chip"><b>Evaluations + tracing</b><span>Groundedness, task adherence, tool-call success - per project</span></div>
-      <div class="chip"><b>Foundry Control Plane</b><span>Fleet-wide view of agents, cost, compliance; bulk fixes</span></div>
-      <div class="chip"><b>AI Red Teaming Agent</b><span>Automated jailbreak + prompt-injection probing</span></div>
-      <div class="chip"><b>Agent 365 <span class="st">GA</span></b><span>Registry + control for agents built anywhere, in M365 admin</span></div>
-      <div class="chip"><b>Publish to M365 + Teams</b><span>Foundry agents ship into Copilot and Teams directly</span></div>
-      <div class="chip"><b>Observability</b><span>Traces, dashboards, anomaly trends across the fleet</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-app-insights"/></svg></span>Evaluations + tracing</b><span>Groundedness, task adherence, tool-call success - per project</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-foundry-control-plane"/></svg></span>Foundry Control Plane</b><span>Fleet-wide view of agents, cost, compliance; bulk fixes</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-shield-error"/></svg></span>AI Red Teaming Agent</b><span>Automated jailbreak + prompt-injection probing</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-agent-365"/></svg></span>Agent 365 <span class="st">GA</span></b><span>Registry + control for agents built anywhere, in M365 admin</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-teams"/></svg></span>Publish to M365 + Teams</b><span>Foundry agents ship into Copilot and Teams directly</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-monitor"/></svg></span>Observability</b><span>Traces, dashboards, anomaly trends across the fleet</span></div>
     </div>
   </div>
 
   <div class="band b5">
     <div class="lbl"><div class="num">5</div><h2>Trust</h2><div class="owns">Identity, data,<br>security</div></div>
     <div class="chips">
-      <div class="chip"><b>Microsoft Entra</b><span>First-class agent identities: RBAC, conditional access</span></div>
-      <div class="chip"><b>Microsoft Purview</b><span>DLP, retention and compliance extended to agents</span></div>
-      <div class="chip"><b>Microsoft Defender</b><span>Threat protection signals for AI workloads</span></div>
-      <div class="chip"><b>Content Safety</b><span>Filters + groundedness detection inside the platform</span></div>
-      <div class="chip"><b>Network isolation</b><span>VNet-injected agent containers, customer-managed keys</span></div>
-      <div class="chip"><b>Responsible AI toolchain</b><span>Guardrails shipped in-platform, not as homework</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-entra"/></svg></span>Microsoft Entra</b><span>First-class agent identities: RBAC, conditional access</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-purview"/></svg></span>Microsoft Purview</b><span>DLP, retention and compliance extended to agents</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-defender"/></svg></span>Microsoft Defender</b><span>Threat protection signals for AI workloads</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-content-safety"/></svg></span>Content Safety</b><span>Filters + groundedness detection inside the platform</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-vnet"/></svg></span>Network isolation</b><span>VNet-injected agent containers, customer-managed keys</span></div>
+      <div class="chip"><b><span class="ic"><svg aria-hidden="true"><use href="icons.svg#i-shield-task"/></svg></span>Responsible AI toolchain</b><span>Guardrails shipped in-platform, not as homework</span></div>
     </div>
   </div>
 
   <div class="foot">
     <div>foundry-map.vercel.app &middot; companion to the essay "The Microsoft agentic AI stack, layer by layer"</div>
-    <div>learn.microsoft.com/azure/foundry</div>
+    <div>learn.microsoft.com/azure/foundry<br>Icons: official Microsoft icon sets (Azure &middot; Power Platform &middot; Fabric &middot; Fluent)</div>
   </div>
 </div>
 </body>
