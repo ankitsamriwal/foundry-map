@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Agent Factory - An Interactive Map of the Azure AI Foundry Ecosystem</title>
+<meta name="description" content="Every service on Microsoft's Azure AI Foundry ecosystem diagram, annotated in plain English and organized by what it actually does.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#07080c; --panel:#0d0f16; --card:#12151e; --card2:#161a25;
+  --line:rgba(148,163,184,.13); --line2:rgba(148,163,184,.22);
+  --txt:#e8ebf2; --mut:#8b93a7; --mut2:#5d6577;
+  --acc:#3b82f6; --acc2:#22d3ee; --warm:#f59e0b;
+  --grad:linear-gradient(120deg,#3b82f6,#22d3ee);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:Inter,-apple-system,sans-serif;font-size:15px;line-height:1.6;overflow-x:hidden}
+::selection{background:rgba(59,130,246,.35)}
+h1,h2,h3,.disp{font-family:'Space Grotesk',Inter,sans-serif}
+.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;background:rgba(7,8,12,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:10px;padding:12px 18px;max-width:760px;margin:0 auto}
+.mark{width:26px;height:26px;border-radius:7px;background:var(--grad);display:grid;place-items:center;flex:none;box-shadow:0 0 18px rgba(59,130,246,.45)}
+.mark span{font-family:'Space Grotesk';font-weight:700;font-size:13px;color:#04060c}
+.hd .t{font-family:'Space Grotesk';font-weight:600;font-size:14px;letter-spacing:.02em}
+.hd .t small{display:block;font-family:Inter;font-weight:400;font-size:10.5px;color:var(--mut);letter-spacing:.08em;text-transform:uppercase}
+.srch{margin-left:auto;position:relative;flex:none}
+.srch input{width:132px;background:var(--card);border:1px solid var(--line2);color:var(--txt);border-radius:9px;padding:7px 10px 7px 28px;font-size:12.5px;font-family:Inter;outline:none;transition:width .25s,border-color .25s}
+.srch input:focus{width:170px;border-color:var(--acc)}
+.srch input::placeholder{color:var(--mut2)}
+.srch svg{position:absolute;left:9px;top:50%;transform:translateY(-50%);opacity:.55}
+.floornav{display:flex;gap:8px;overflow-x:auto;padding:10px 18px;max-width:760px;margin:0 auto;scrollbar-width:none}
+.floornav::-webkit-scrollbar{display:none}
+.chip{flex:none;font-size:11.5px;font-weight:600;letter-spacing:.04em;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:6px 12px;text-decoration:none;transition:all .25s;background:transparent;display:flex;align-items:center;gap:6px}
+.chip i{width:6px;height:6px;border-radius:50%;background:var(--mut2);transition:all .25s}
+.chip.on{color:#fff;border-color:rgba(59,130,246,.55);background:rgba(59,130,246,.12)}
+.chip.on i{background:var(--acc2);box-shadow:0 0 8px var(--acc2)}
+
+/* ---------- hero ---------- */
+.hero{position:relative;padding:72px 0 46px;overflow:hidden}
+.hero::before{content:"";position:absolute;inset:0;background:
+ radial-gradient(560px 340px at 82% -8%,rgba(59,130,246,.22),transparent 65%),
+ radial-gradient(480px 300px at 8% 30%,rgba(34,211,238,.10),transparent 60%);pointer-events:none}
+.grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(148,163,184,.055) 1px,transparent 1px),linear-gradient(90deg,rgba(148,163,184,.055) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse 90% 80% at 50% 0%,#000 30%,transparent 78%);-webkit-mask-image:radial-gradient(ellipse 90% 80% at 50% 0%,#000 30%,transparent 78%);pointer-events:none}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc2);border:1px solid rgba(34,211,238,.3);border-radius:99px;padding:6px 13px;background:rgba(34,211,238,.06)}
+.kicker::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--acc2);box-shadow:0 0 10px var(--acc2);animation:pulse 2.4s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.hero h1{font-size:clamp(38px,10vw,60px);line-height:1.02;font-weight:700;letter-spacing:-.03em;margin:20px 0 6px}
+.hero h1 em{font-style:normal;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero .sub{font-size:16.5px;color:var(--mut);max-width:34em;margin-top:12px}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:26px}
+.meta div{font-size:12px;color:var(--mut);border:1px solid var(--line);background:rgba(18,21,30,.6);border-radius:9px;padding:7px 12px}
+.meta b{color:var(--txt);font-weight:600}
+.cue{margin-top:34px;display:flex;align-items:center;gap:10px;color:var(--mut2);font-size:11.5px;letter-spacing:.1em;text-transform:uppercase}
+.cue .bar{width:1px;height:34px;background:linear-gradient(var(--acc),transparent);animation:drop 1.8s infinite}
+@keyframes drop{0%{transform:scaleY(0);transform-origin:top}55%{transform:scaleY(1);transform-origin:top}56%{transform-origin:bottom}100%{transform:scaleY(0);transform-origin:bottom}}
+
+/* ---------- sections ---------- */
+section{padding:44px 0 8px}
+.eyebrow{font-size:11px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--acc)}
+.doors{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:18px}
+.door{background:linear-gradient(160deg,var(--card2),var(--card));border:1px solid var(--line);border-radius:14px;padding:16px 14px;position:relative;overflow:hidden}
+.door::after{content:"";position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(59,130,246,.7),transparent)}
+.door h3{font-size:13.5px;font-weight:600;margin-bottom:5px}
+.door p{font-size:12px;color:var(--mut);line-height:1.5}
+.door .dk{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--mut2);margin-bottom:8px;display:block}
+
+/* ---------- floors ---------- */
+.floor{margin-top:52px;scroll-margin-top:118px}
+.fl-hd{position:relative;padding:22px 0 6px;border-top:1px solid var(--line)}
+.fl-num{font-family:'Space Grotesk';font-size:13px;font-weight:600;color:var(--acc2);letter-spacing:.16em}
+.fl-hd h2{font-size:clamp(24px,6.5vw,32px);font-weight:700;letter-spacing:-.02em;margin:6px 0 8px}
+.fl-hd .blurb{color:var(--mut);font-size:14px;max-width:36em}
+.fl-count{display:inline-block;margin-top:12px;font-size:11px;font-weight:600;letter-spacing:.06em;color:var(--mut);border:1px solid var(--line);border-radius:99px;padding:4px 11px}
+.grp{margin-top:26px}
+.grp-l{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--mut);margin-bottom:12px}
+.grp-l::after{content:"";flex:1;height:1px;background:var(--line)}
+.cards{display:grid;grid-template-columns:repeat(2,1fr);gap:9px}
+@media(max-width:380px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 13px;cursor:pointer;transition:border-color .2s,background .2s,opacity .3s,transform .15s;position:relative}
+.card:active{transform:scale(.985)}
+.card:hover{border-color:var(--line2)}
+.card.open{border-color:rgba(59,130,246,.5);background:var(--card2)}
+.card .nm{font-size:13px;font-weight:600;line-height:1.3;display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.card .nm .car{flex:none;width:14px;height:14px;margin-top:2px;border-radius:50%;border:1px solid var(--mut2);position:relative;transition:transform .25s,border-color .25s}
+.card .nm .car::before,.card .nm .car::after{content:"";position:absolute;background:var(--mut2);left:50%;top:50%;transition:background .25s}
+.card .nm .car::before{width:6px;height:1px;transform:translate(-50%,-50%)}
+.card .nm .car::after{width:1px;height:6px;transform:translate(-50%,-50%)}
+.card.open .nm .car{transform:rotate(45deg);border-color:var(--acc)}
+.card.open .nm .car::before,.card.open .nm .car::after{background:var(--acc)}
+.tag{display:inline-block;margin-top:7px;font-size:9.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--mut);border:1px solid var(--line);border-radius:5px;padding:2px 6px}
+.tag.new{color:var(--warm);border-color:rgba(245,158,11,.35)}
+.note{max-height:0;overflow:hidden;transition:max-height .3s ease,margin .3s;font-size:12px;color:var(--mut);line-height:1.55}
+.card.open .note{max-height:140px;margin-top:9px}
+.dim .card{opacity:.16;pointer-events:none}
+.dim .card.hit{opacity:1;pointer-events:auto;border-color:rgba(34,211,238,.55)}
+.dim .grp{display:none}
+.dim .grp:has(.card.hit){display:block}
+.dim .card.hit .nm{color:var(--acc2)}
+.noresult{display:none;text-align:center;color:var(--mut);font-size:13px;padding:30px 0 10px}
+.dim.nohits .noresult{display:block}
+
+/* ---------- changelog ---------- */
+.log{margin-top:52px;scroll-margin-top:118px}
+.log-hd{border-top:1px solid var(--line);padding-top:22px}
+.log h2{font-size:clamp(22px,6vw,28px);font-weight:700;letter-spacing:-.02em;margin:6px 0 8px}
+.log .blurb{color:var(--mut);font-size:14px;max-width:36em}
+.diff{margin-top:20px;display:grid;gap:9px}
+.drow{display:flex;gap:13px;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px}
+.drow .ic{flex:none;width:30px;height:30px;border-radius:9px;display:grid;place-items:center;font-family:'Space Grotesk';font-weight:700;font-size:13px}
+.drow.rn .ic{background:rgba(245,158,11,.12);color:var(--warm);border:1px solid rgba(245,158,11,.3)}
+.drow.ga .ic{background:rgba(34,211,238,.1);color:var(--acc2);border:1px solid rgba(34,211,238,.3)}
+.drow h3{font-size:13.5px;font-weight:600;margin-bottom:3px}
+.drow p{font-size:12px;color:var(--mut);line-height:1.55}
+.drow .arr{color:var(--mut2);font-family:'Space Grotesk'}
+
+/* ---------- footer ---------- */
+footer{margin-top:64px;border-top:1px solid var(--line);padding:30px 0 90px;color:var(--mut2);font-size:12px;line-height:1.7}
+footer a{color:var(--mut);text-decoration:none;border-bottom:1px solid var(--line2)}
+footer .src{margin-top:10px}
+.toast{position:fixed;left:50%;bottom:22px;transform:translateX(-50%) translateY(80px);background:var(--card2);border:1px solid var(--line2);color:var(--txt);font-size:12.5px;border-radius:10px;padding:10px 16px;transition:transform .3s;z-index:80;box-shadow:0 10px 40px rgba(0,0,0,.5)}
+.toast.show{transform:translateX(-50%) translateY(0)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hd">
+    <div class="mark"><span>F</span></div>
+    <div class="t">The Agent Factory<small>Azure AI Foundry, mapped</small></div>
+    <div class="srch">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#8b93a7" stroke-width="2.4"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="q" type="search" placeholder="Filter services" autocomplete="off">
+    </div>
+  </div>
+  <nav class="floornav" id="floornav">
+    <a class="chip" href="#doors" data-s="doors"><i></i>Doors</a>
+    <a class="chip" href="#f1" data-s="f1"><i></i>01 Models</a>
+    <a class="chip" href="#f2" data-s="f2"><i></i>02 Toolchain</a>
+    <a class="chip" href="#f3" data-s="f3"><i></i>03 Production</a>
+    <a class="chip" href="#f4" data-s="f4"><i></i>04 Trust</a>
+    <a class="chip" href="#log" data-s="log"><i></i>Since the slide</a>
+  </nav>
+</header>
+
+<div class="hero">
+  <div class="grid-bg"></div>
+  <div class="wrap">
+    <span class="kicker">An interactive map</span>
+    <h1>The Agent<br><em>Factory</em></h1>
+    <p class="sub">Microsoft's Azure AI Foundry ecosystem diagram is usually read as logo soup. Read properly, it is a factory plan: four floors of capability, four doors in, and every machine labeled. Here is every service on that slide, annotated in plain English and organized by what it actually does.</p>
+    <div class="meta">
+      <div><b>72</b> services</div>
+      <div><b>4</b> floors</div>
+      <div><b>4</b> doors in</div>
+      <div>tap any card</div>
+    </div>
+    <div class="cue"><div class="bar"></div>Start at the doors</div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="doors">
+  <span class="eyebrow">Entry surfaces</span>
+  <div class="doors">
+    <div class="door"><span class="dk">Low code</span><h3>Copilot Studio</h3><p>Build copilots and agents without writing the plumbing yourself. Where business teams start.</p></div>
+    <div class="door"><span class="dk">Pro code</span><h3>Visual Studio</h3><p>The full IDE where professional developers build, debug and extend Foundry apps.</p></div>
+    <div class="door"><span class="dk">Source & CI/CD</span><h3>GitHub</h3><p>Repos, Copilot and Actions. Where the code lives and where shipping happens.</p></div>
+    <div class="door"><span class="dk">In your code</span><h3>Azure AI Foundry SDK</h3><p>One SDK across Python, JS, .NET and Java to call models, agents and tools directly.</p></div>
+  </div>
+</section>
+
+<div id="app"></div>
+
+<section class="log" id="log">
+  <div class="log-hd">
+    <span class="fl-num">FIELD NOTES</span>
+    <h2>The slide is already out of date</h2>
+    <p class="blurb">Ecosystem slides freeze a moving target. What has changed since this one was drawn tells you more than the logos do: the names churn, the floors stay.</p>
+  </div>
+  <div class="diff">
+    <div class="drow rn"><div class="ic">R</div><div><h3>Azure AI Foundry <span class="arr">&rarr;</span> Microsoft Foundry</h3><p>The platform dropped "Azure" from its name; current documentation lives under Microsoft Foundry on Microsoft Learn. The pitch is now bigger than one cloud's branding.</p></div></div>
+    <div class="drow rn"><div class="ic">R</div><div><h3>Azure AI Search <span class="arr">&rarr;</span> Foundry IQ</h3><p>The retrieval layer is being folded into the platform as Foundry IQ. RAG stops being a bolt-on and becomes a native capability.</p></div></div>
+    <div class="drow ga"><div class="ic">G</div><div><h3>Agent Service is generally available</h3><p>GA since May 2025, with managed tools for Bing grounding, SharePoint, Logic Apps and code interpretation. Agents went from demo to supported workload.</p></div></div>
+    <div class="drow ga"><div class="ic">G</div><div><h3>The catalog passed 11,000 models</h3><p>Per Microsoft's product page. The 18 model logos on the slide are the window display, not the warehouse.</p></div></div>
+    <div class="drow rn"><div class="ic">R</div><div><h3>Operations layer <span class="arr">&rarr;</span> Foundry Control Plane</h3><p>Fleet-wide management, quotas and governance across agents now have a name of their own.</p></div></div>
+  </div>
+</section>
+
+<footer>
+  <div>Built as an annotation of the "Azure AI Foundry Ecosystem" diagram by Aiswarya Venkitesh (Microsoft), as circulated on LinkedIn. Annotations are an independent reading, not Microsoft documentation.</div>
+  <div class="src">Sources: <a href="https://learn.microsoft.com/en-us/azure/foundry/concepts/architecture">Microsoft Foundry architecture</a> &middot; <a href="https://azure.microsoft.com/en-us/products/ai-foundry">Microsoft Foundry product page</a> &middot; <a href="https://techcommunity.microsoft.com/blog/azure-ai-foundry-blog/announcing-general-availability-of-azure-ai-foundry-agent-service/4414352">Agent Service GA announcement</a></div>
+  <div style="margin-top:14px">Made by Ankit Samriwal &middot; shipped with agents</div>
+</footer>
+
+</div>
+
+<div class="noresult" id="noresult" style="position:relative">No services match. Try "search", "agent", "safety".</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const FLOORS=[
+{id:'f1',num:'FLOOR 01',name:'The Model Floor',tagline:'Design with the best models',blurb:'A catalog, not a commitment. Frontier, open-weight, hub-hosted and vertical models sit side by side, swappable behind one endpoint. The model is a part; the factory is the platform.',groups:[
+ {label:"Microsoft's own",items:[
+  ['Azure OpenAI Service','flagship',"OpenAI's GPT models hosted inside Azure's compliance, networking and billing boundary."],
+  ['Phi models','open-weight',"Microsoft's small open-weight models, built for cheap, fast, on-device inference."],
+  ['Microsoft Research','research',"Frontier models straight out of Microsoft's labs, before they become products."]]},
+ {label:'Open-weight frontier',items:[
+  ['Meta Llama models','open-weight',"Meta's Llama family. The default open starting point for most enterprise builds."],
+  ['Mistral AI models','open-weight',"The European frontier lab; strong open generalists with permissive licensing."],
+  ['DeepSeek','open-weight',"The open reasoning models that reset the industry's price-performance curve."],
+  ['Cohere models','enterprise',"Enterprise-focused LLMs: Command for chat, Embed for retrieval."]]},
+ {label:'Hubs & rival clouds',items:[
+  ['Hugging Face models','hub',"The open-model hub. Thousands of community models reachable from one catalog."],
+  ['Snowflake models','hub',"Models from the data-cloud world, Arctic and friends, invited onto Azure turf."],
+  ['Databricks models','hub',"Databricks' open models from the lakehouse camp. Coopetition in action."],
+  ['Nvidia models','hub',"Nvidia's NIM-packaged models, tuned to squeeze GPU inference."]]},
+ {label:'Vertical & regional',items:[
+  ['Saifr','finance',"Fidelity's compliance models, fluent in financial-services regulatory language."],
+  ['Rockwell','industrial',"Industrial-automation intelligence from the factory floor."],
+  ['Bayer','agriculture',"Crop-science expertise, packaged as a callable model."],
+  ['Sight Machine','manufacturing',"Manufacturing data turned into models for production lines."],
+  ['Jais (G42)','arabic',"The UAE's Arabic-English LLM, from G42 and Inception."],
+  ['Nixtla TimeGEN-1','time series',"A foundation model for forecasting numbers over time, not text."],
+  ['NTT DATA model','japan',"NTT's lightweight enterprise LLM, tsuzumi."]]}]},
+{id:'f2',num:'FLOOR 02',name:'The Toolchain Floor',tagline:'Customize with a comprehensive agent toolchain',blurb:'The real platform. Thirty-one first-party tools plus the open-source stack an agent team already knows, covering the six jobs every agent needs done: build, know, sense, run, adapt, prove.',groups:[
+ {label:'Build the agent',items:[
+  ['Azure AI Agent Service','core',"Managed runtime for stateful, tool-using agents. Generally available since May 2025."],
+  ['Semantic Kernel','framework',"Microsoft's open-source SDK for composing agents, planners and plugins in C#, Python and Java."],
+  ['AutoGen','framework',"Microsoft Research's framework for multi-agent conversations that delegate and critique."],
+  ['Prompt flow','orchestration',"Visual orchestration of LLM workflows: prompts, tools, branches, evaluation loops."],
+  ['AI toolkit for VS Code','developer',"Editor extension to browse the catalog, shape prompts and test agents without leaving the IDE."]]},
+ {label:'Give it knowledge',items:[
+  ['Azure AI Search','retrieval',"The retrieval layer: vector and hybrid search over your content. Now evolving into Foundry IQ.",'new'],
+  ['Microsoft Fabric','analytics',"OneLake analytics. Agents read the same governed data your BI reports on."],
+  ['Microsoft SharePoint','documents',"Ground agents in the documents your organization actually keeps."],
+  ['Azure SQL Database','operational',"Relational data with vector search built in, so agents query the system of record."],
+  ['Microsoft Blob Storage','storage',"Cheap object storage for files, media and training corpora."],
+  ['Cosmos DB','nosql',"Globally distributed NoSQL; doubles as chat memory and vector store for agents."],
+  ['Azure Redis','cache',"Managed cache: fast session memory and semantic caching for repeated prompts."],
+  ['Azure Data Lake Storage','big data',"The big-data landing zone behind analytics and retrieval pipelines."],
+  ['Event Hub','streaming',"Live event streams in, so agents react to the business as it happens."],
+  ['Microsoft Bing','web',"Grounding with fresh results from the live web."]]},
+ {label:'Give it senses',items:[
+  ['Azure AI Speech','speech',"Speech-to-text, neural voices and speech translation."],
+  ['Azure AI Language','text',"Entities, sentiment, PII and intent, pulled out of raw text."],
+  ['Azure AI Translation','language',"Text and document translation across a hundred-plus languages."],
+  ['Azure AI Vision','image',"Image analysis, OCR and video understanding."],
+  ['Azure AI Doc Intelligence','documents',"Structured data out of forms, invoices and contracts."],
+  ['Azure AI Content Understanding','multimodal',"One extraction pipeline across documents, images, audio and video."]]},
+ {label:'Run it',items:[
+  ['Azure Functions','serverless',"Serverless glue code. Agents call functions as tools."],
+  ['Azure Logic Apps','connectors',"A thousand-plus connectors; how an agent actually triggers a business workflow."],
+  ['Azure Kubernetes','compute',"AKS, for when you run models and tools on your own clusters."],
+  ['Container Apps','compute',"Serverless containers: the easy way to host agent services and sidecars."],
+  ['Dynamic Sessions','sandbox',"On-demand sandboxed code-interpreter sessions for agents that run code."]]},
+ {label:'Make it yours',items:[
+  ['Azure ML','training',"The full ML platform: pipelines, registries, endpoints, custom training."],
+  ['Fine-tuning & distillation','adaptation',"Adapt a model on your data, or distill a big model into a small, cheap one."]]},
+ {label:'Prove it works',items:[
+  ['Tracing & debugging','observability',"OpenTelemetry traces of every agent step, tool call and token."],
+  ['Evaluation','quality',"Systematic scoring of quality, groundedness and safety before and after release."],
+  ['Experiments','testing',"Variant testing across prompts, models and configurations."]]},
+ {label:'Third-party & open source',items:[
+  ['LangChain','framework',"The popular open-source agent framework, first-class here rather than rival."],
+  ['LlamaIndex','framework',"The data framework behind a large share of the world's RAG pipelines."],
+  ['Llama Stack','framework',"Meta's standardized building blocks for Llama-based apps."],
+  ['Code Interpreter','tool',"Sandboxed Python execution handed to an agent as a tool."],
+  ['OpenAI Actions','tool',"OpenAPI-described tools, GPTs-style, wired straight into agents."],
+  ['Weights & Biases','mlops',"Experiment tracking and evaluation dashboards."],
+  ['Scale','data',"Data labeling and evaluation services."],
+  ['Gretel','synthetic data',"Synthetic data generation for training and testing."],
+  ['Statsig','experimentation',"Feature flags and experimentation for staged AI rollouts."],
+  ['Arize AI','observability',"LLM observability: tracing, drift and quality monitoring."]]}]},
+{id:'f3',num:'FLOOR 03',name:'The Production Floor',tagline:'Manage performance in production',blurb:'Where pilots go to become systems. Short list on purpose: once the toolchain above is in place, running it is ordinary engineering discipline applied to a new kind of workload.',groups:[
+ {label:'Watch it',items:[
+  ['Azure Monitor','observability',"Metrics, logs and alerts across everything in production."],
+  ['Azure App Config','configuration',"Central configuration and feature flags for running applications."],
+  ['Microsoft Cost Management','finops',"See and cap what the tokens actually cost, per app and per team."]]},
+ {label:'Ship it',items:[
+  ['GitHub Actions','ci/cd',"CI/CD for prompts, agents and evaluations. AI shipped with software discipline."]]},
+ {label:'Third-party MLOps',items:[
+  ['ClearML','mlops',"Pipelines, experiment management and model ops from the open-source MLOps camp."],
+  ['Dataloop','data ops',"Annotation and unstructured-data pipelines for production AI."]]}]},
+{id:'f4',num:'FLOOR 04',name:'The Trust Floor',tagline:'Safeguard with Trustworthy AI',blurb:'The floor enterprise deals are actually won on. Security teams read this layer first; it is what lets a bank, a hospital or a government say yes.',groups:[
+ {label:'Content & threat protection',items:[
+  ['Azure AI Content Safety','moderation',"Filters harmful content in both prompts and responses, text and images."],
+  ['Microsoft Defender','security',"Threat protection extended to AI workloads and their attack surface."]]},
+ {label:'Identity & policy',items:[
+  ['Entra ID','identity',"Identity and access. Agents authenticate as managed identities, not shared keys."],
+  ['Azure Policy','governance',"Guardrails as code, enforced across every subscription."]]},
+ {label:'Data protection',items:[
+  ['Azure Application Gateway','network',"The front door: web application firewall, routing and TLS for AI endpoints."],
+  ['Azure Confidential Computing','enclaves',"Hardware enclaves that keep data encrypted even while it is being processed."],
+  ['Azure Backup','resilience',"Backup and recovery for the data the AI depends on."]]}]}];
+
+const app=document.getElementById('app');
+let html='';
+for(const f of FLOORS){
+  let count=0; f.groups.forEach(g=>count+=g.items.length);
+  html+=`<section class="floor" id="${f.id}"><div class="fl-hd"><span class="fl-num">${f.num}</span><h2>${f.name}</h2><p class="blurb">${f.blurb}</p><span class="fl-count">${count} services &middot; "${f.tagline}"</span></div>`;
+  for(const g of f.groups){
+    html+=`<div class="grp"><div class="grp-l">${g.label}</div><div class="cards">`;
+    for(const it of g.items){
+      const renamed=it[3]?'<span class="tag new">renamed</span>':'';
+      html+=`<div class="card" tabindex="0"><div class="nm"><span>${it[0]}</span><span class="car"></span></div><span class="tag">${it[1]}</span>${renamed}<div class="note">${it[2]}</div></div>`;
+    }
+    html+='</div></div>';
+  }
+  html+='</section>';
+}
+app.innerHTML=html;
+
+/* expand cards */
+document.querySelectorAll('.card').forEach(c=>{
+  const t=()=>c.classList.toggle('open');
+  c.addEventListener('click',t);
+  c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();t();}});
+});
+
+/* search filter */
+const q=document.getElementById('q');
+q.addEventListener('input',()=>{
+  const v=q.value.trim().toLowerCase();
+  const scope=document.getElementById('app');
+  if(!v){scope.classList.remove('dim','nohits');document.querySelectorAll('.card.hit').forEach(c=>c.classList.remove('hit'));return;}
+  let hits=0;
+  scope.querySelectorAll('.card').forEach(c=>{
+    const ok=c.textContent.toLowerCase().includes(v);
+    c.classList.toggle('hit',ok); if(ok)hits++;
+  });
+  scope.classList.add('dim'); scope.classList.toggle('nohits',hits===0);
+  const nr=document.getElementById('noresult');
+  if(hits===0){nr.scrollIntoView({behavior:'smooth',block:'center'});}
+});
+
+/* scrollspy */
+const chips={};document.querySelectorAll('.chip').forEach(c=>chips[c.dataset.s]=c);
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{if(e.isIntersecting){
+    Object.values(chips).forEach(c=>c.classList.remove('on'));
+    const ch=chips[e.target.id];if(ch){ch.classList.add('on');ch.scrollIntoView({block:'nearest',inline:'center'});}
+  }});
+},{rootMargin:'-30% 0px -55% 0px'});
+['doors','f1','f2','f3','f4','log'].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el);});
+</script>
+</body>
+</html>
